@@ -1,0 +1,753 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{correctResponse}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{obspy} \PY{k}{import} \PY{n}{read\PYZus{}inventory}\PY{p}{,} \PY{n}{UTCDateTime}
+        \PY{k+kn}{from} \PY{n+nn}{obspy}\PY{n+nn}{.}\PY{n+nn}{core}\PY{n+nn}{.}\PY{n+nn}{event} \PY{k}{import} \PY{n}{read\PYZus{}events}
+        \PY{k+kn}{from} \PY{n+nn}{obspy} \PY{k}{import} \PY{n}{read}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{subprocess}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{Double check that obspy is actually using an butterworth filter}
+        \PY{l+s+sd}{Plot out some of the spectra for this data}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} '\textbackslash{}nDouble check that obspy is actually using an butterworth filter\textbackslash{}nPlot out some of the spectra for this data\textbackslash{}n'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{path}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+        \PY{n}{EVID}\PY{o}{=}\PY{l+m+mi}{385392}
+        \PY{n}{comparisionFrequency} \PY{o}{=} \PY{l+m+mf}{3.3}
+        
+        \PY{k}{def} \PY{n+nf}{write\PYZus{}st\PYZus{}as\PYZus{}sac}\PY{p}{(}\PY{n}{st}\PY{p}{,}\PY{n}{instrument}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{acc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{eventID}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{n}{directory} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{eventID}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/response}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+                \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{n}{directory}\PY{p}{)}
+            \PY{n}{directory} \PY{o}{=} \PY{n}{directory} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{instrument} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}}
+            \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{n}{directory}\PY{p}{)}\PY{p}{:}
+                \PY{n}{os}\PY{o}{.}\PY{n}{makedirs}\PY{p}{(}\PY{n}{directory}\PY{p}{)}
+            \PY{n}{fname} \PY{o}{=} \PY{n}{directory}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{.sac}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{trace}\PY{o}{.}\PY{n}{id}
+            \PY{n}{trace}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{fname}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SAC}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Clean up the input data}
+        \PY{n}{command}\PY{p}{,}\PY{n}{newFile} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{k}{try}\PY{p}{:}
+            \PY{n}{os}\PY{o}{.}\PY{n}{mkdir}\PY{p}{(}\PY{n}{path}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{EVID}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cleaned}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{inputFiles} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{path}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{EVID}\PY{p}{)}\PY{p}{)}
+            \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{inputFiles}\PY{p}{:}
+                \PY{n}{net} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NN}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{sta}\PY{p}{,}\PY{n}{cha} \PY{o}{=} \PY{n}{file}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{file}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{newFile}\PY{o}{=} \PY{n}{net}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{sta}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{cha}
+                \PY{n}{command} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cp }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{path}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{EVID}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{file} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{path}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{EVID}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cleaned}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{newFile} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.sac}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n}{process} \PY{o}{=} \PY{n}{subprocess}\PY{o}{.}\PY{n}{Popen}\PY{p}{(}\PY{n}{command}\PY{p}{,} \PY{n}{shell}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{stdout}\PY{o}{=}\PY{n}{subprocess}\PY{o}{.}\PY{n}{PIPE}\PY{p}{)}
+                
+        \PY{k}{except} \PY{n+ne}{Exception} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{repr}\PY{p}{(}\PY{n}{e}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{you have most likely already cleaned up the input files}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+FileExistsError(17, 'File exists')
+you have most likely already cleaned up the input files
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}begin by loading the station xml}
+        \PY{n}{inventory} \PY{o}{=} \PY{n}{read\PYZus{}inventory}\PY{p}{(}\PY{n}{path}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/reno.xml}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}get all of the availible stations}
+        \PY{n}{st} \PY{o}{=} \PY{n}{read}\PY{p}{(}\PY{n}{path}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/385392/cleaned/*.sac}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}fix them so that they have the correct network metadata }
+        \PY{c+c1}{\PYZsh{}(so that they can be found in the instrument response)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{st}\PY{p}{:}
+            \PY{n}{i}\PY{o}{.}\PY{n}{meta}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{network}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NN}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Play with some filters and look at how well it works}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{r1 = st[190].copy()}
+        \PY{l+s+sd}{r2 = st[191].copy()}
+        \PY{l+s+sd}{\PYZsh{}filter down to target frequencty}
+        \PY{l+s+sd}{r1Copy = r1.copy()}
+        \PY{l+s+sd}{r1.filter(\PYZsq{}lowpass\PYZsq{},freq=comparisionFrequency,corners=5,zerophase=True)}
+        \PY{l+s+sd}{r1.plot()}
+        \PY{l+s+sd}{r1Copy.plot()}
+        \PY{l+s+sd}{r1.remove\PYZus{}response(inventory=inventory,output=\PYZdq{}acc\PYZdq{},plot=True)}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{k}{def} \PY{n+nf}{filterACC}\PY{p}{(}\PY{n}{trace}\PY{p}{,}\PY{n}{corners}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{zerophase}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{comparisionFrequency}\PY{o}{=}\PY{n}{comparisionFrequency}\PY{p}{)}\PY{p}{:}
+            \PY{n}{trace}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lowpass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{freq}\PY{o}{=}\PY{n}{comparisionFrequency}\PY{p}{,}\PY{n}{corners}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{zerophase}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}remove the response for all of the stations}
+        \PY{c+c1}{\PYZsh{}pre\PYZus{}filt = (0.05, 0.1, 50.0, 60.0)}
+        \PY{n}{plot} \PY{o}{=} \PY{k+kc}{True}
+        \PY{k}{for} \PY{n}{trace} \PY{o+ow}{in} \PY{n}{st}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}attempt to remove the response for each}
+            \PY{k}{try}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}determine if accelerogram}
+                \PY{k}{if}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{trace}\PY{o}{.}\PY{n}{id}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{filterACC}\PY{p}{(}\PY{n}{trace}\PY{p}{)}
+                    \PY{n}{trace}\PY{o}{.}\PY{n}{remove\PYZus{}response}\PY{p}{(}\PY{n}{inventory}\PY{o}{=}\PY{n}{inventory}\PY{p}{,}\PY{n}{output}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{acc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{plot}\PY{o}{=}\PY{n}{plot}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}save to accelerogram dir}
+                    \PY{n}{write\PYZus{}st\PYZus{}as\PYZus{}sac}\PY{p}{(}\PY{n}{trace}\PY{p}{,}\PY{n}{instrument}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{acc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{eventID}\PY{o}{=}\PY{n}{EVID}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{}velocity}
+                \PY{k}{elif}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{H}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{or} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o+ow}{in} \PY{n}{trace}\PY{o}{.}\PY{n}{id}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{filterACC}\PY{p}{(}\PY{n}{trace}\PY{p}{)}
+                    \PY{n}{trace}\PY{o}{.}\PY{n}{remove\PYZus{}response}\PY{p}{(}\PY{n}{inventory}\PY{o}{=}\PY{n}{inventory}\PY{p}{,}\PY{n}{output}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pre\PYZus{}filt}\PY{o}{=}\PY{n}{pre\PYZus{}filt}\PY{p}{,}\PY{n}{plot}\PY{o}{=}\PY{n}{plot}\PY{p}{)}
+                    \PY{n}{write\PYZus{}st\PYZus{}as\PYZus{}sac}\PY{p}{(}\PY{n}{trace}\PY{p}{,}\PY{n}{instrument}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{eventID}\PY{o}{=}\PY{n}{EVID}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}displacement}
+                \PY{k}{elif}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{trace}\PY{o}{.}\PY{n}{id}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{..}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{filterACC}\PY{p}{(}\PY{n}{trace}\PY{p}{)}
+                    \PY{n}{trace}\PY{o}{.}\PY{n}{remove\PYZus{}response}\PY{p}{(}\PY{n}{inventory}\PY{o}{=}\PY{n}{inventory}\PY{p}{,}\PY{n}{output}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{disp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{plot}\PY{o}{=}\PY{n}{plot}\PY{p}{)}
+                    \PY{n}{write\PYZus{}st\PYZus{}as\PYZus{}sac}\PY{p}{(}\PY{n}{trace}\PY{p}{,}\PY{n}{instrument}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{disp}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{eventID}\PY{o}{=}\PY{n}{EVID}\PY{p}{)}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{unkown seed code for }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{trace}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{corrected response for }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{trace}\PY{p}{)}\PY{p}{)}
+            \PY{k}{except} \PY{n+ne}{Exception} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{}print(repr(e))}
+                \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+corrected response for NN.BEK..BHN | 2008-04-26T06:40:10.470000Z - 2008-04-26T06:41:10.445000Z | 40.0 Hz, 2400 samples
+corrected response for NN.CC16..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.CC22..HGN | 2008-04-26T06:40:10.458000Z - 2008-04-26T06:41:10.448000Z | 100.0 Hz, 6000 samples
+corrected response for NN.CCAD..HGN | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.444000Z | 100.0 Hz, 6000 samples
+corrected response for NN.CF03..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.CLRK..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.DOEL..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.GMN..SHN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.435874Z | 50.0 Hz, 3000 samples
+corrected response for NN.GSLV..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.HF05..HGN | 2008-04-26T06:40:10.463000Z - 2008-04-26T06:41:10.453000Z | 100.0 Hz, 6000 samples
+corrected response for NN.HONJ..HNE | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.HONJ..HNN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.HONJ..HNZ | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.HVGC..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.LV04..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+unkown seed code for NN.MDP..DLI | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.435874Z | 50.0 Hz, 3000 samples
+corrected response for NN.MDP..DLI | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.435874Z | 50.0 Hz, 3000 samples
+corrected response for NN.MND1..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.MOGE..HHN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGE..HNN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGE..HNZ | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGL..HHN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/dukeleto/.conda/envs/obspy/lib/python3.7/site-packages/matplotlib/pyplot.py:514: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max\_open\_warning`).
+  max\_open\_warning, RuntimeWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+corrected response for NN.MOGL..HNZ | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGL..SHN | 2008-04-26T06:40:10.464000Z - 2008-04-26T06:41:10.444000Z | 50.0 Hz, 3000 samples
+corrected response for NN.MOGW..HHN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGW..HNE | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGW..HNN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOGW..HNZ | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.MOHS..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+unkown seed code for NN.NI3..02 | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.NI3..02 | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+unkown seed code for NN.NI3..04 | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.NI3..04 | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+unkown seed code for NN.NI3..05 | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.NI3..05 | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.450000Z | 200.0 Hz, 12000 samples
+corrected response for NN.NMHS..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.NOAA..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.PAN..SHN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.435874Z | 50.0 Hz, 3000 samples
+corrected response for NN.RF05..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.RRK..EHN | 2008-04-26T06:40:10.456000Z - 2008-04-26T06:41:10.446000Z | 100.0 Hz, 6000 samples
+corrected response for NN.RUB..SHN | 2008-04-26T06:40:10.459000Z - 2008-04-26T06:41:10.439000Z | 50.0 Hz, 3000 samples
+corrected response for NN.SHP..EHN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.SKYF..HGN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+corrected response for NN.SMRN..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.SWTP..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.UNRN..HGN | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.444000Z | 100.0 Hz, 6000 samples
+unkown seed code for NN.UZ-16..02Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+corrected response for NN.UZ-16..02Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+unkown seed code for NN.UZ-16..03Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+corrected response for NN.UZ-16..03Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+unkown seed code for NN.UZ-16..94Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+corrected response for NN.UZ-16..94Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+unkown seed code for NN.UZ-16..95Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+corrected response for NN.UZ-16..95Z | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.452004Z | 500.0 Hz, 30000 samples
+corrected response for NN.VOTK..HGN | 2008-04-26T06:40:10.458000Z - 2008-04-26T06:41:10.448000Z | 100.0 Hz, 6000 samples
+corrected response for NN.WAK..EHN | 2008-04-26T06:40:10.454000Z - 2008-04-26T06:41:10.444000Z | 100.0 Hz, 6000 samples
+corrected response for NN.WCN..HGN | 2008-04-26T06:40:10.462000Z - 2008-04-26T06:41:10.452000Z | 100.0 Hz, 6000 samples
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/dukeleto/.conda/envs/obspy/lib/python3.7/site-packages/obspy/signal/filter.py:151: UserWarning: Selected corner frequency is above Nyquist. Setting Nyquist as high corner.
+  warnings.warn(msg)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+corrected response for NN.WGLF..HGN | 2008-04-26T06:40:10.463000Z - 2008-04-26T06:41:10.453000Z | 100.0 Hz, 6000 samples
+corrected response for NN.WIL..EHN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.WTNK..HGN | 2008-04-26T06:40:10.455000Z - 2008-04-26T06:41:10.445000Z | 100.0 Hz, 6000 samples
+corrected response for NN.WVA..EHN | 2008-04-26T06:40:10.463000Z - 2008-04-26T06:41:10.453000Z | 100.0 Hz, 6000 samples
+corrected response for NN.YER..EHN | 2008-04-26T06:40:10.460000Z - 2008-04-26T06:41:10.450000Z | 100.0 Hz, 6000 samples
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_32.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_34.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_36.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_38.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_40.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_42.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_44.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_46.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_48.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_50.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_52.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_54.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
